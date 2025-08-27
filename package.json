@@ -17,7 +17,12 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm": "npx typeorm-ts-node-commonjs",
+    "migration:create": "sh -c 'pnpm typeorm migration:create src/database/migrations/$0 && prettier -w src/database/migrations/*-$0.ts && eslint --fix src/database/migrations/*-$0.ts'",
+    "migration:generate": "sh -c 'pnpm typeorm migration:generate -d src/database/data-source.ts src/database/migrations/$0 && prettier -w src/database/migrations/*-$0.ts && eslint --fix src/database/migrations/*-$0.ts'",
+    "migration:run": "pnpm typeorm migration:run -d src/database/data-source.ts",
+    "migration:revert": "pnpm typeorm migration:revert -d src/database/data-source.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
