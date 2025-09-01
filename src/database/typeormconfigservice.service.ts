@@ -11,7 +11,6 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
     return {
       ...getConfig(this.configService),
       autoLoadEntities: true,
-      synchronize: true,
     };
   }
 }

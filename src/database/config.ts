@@ -13,6 +13,7 @@ export const getConfig = (
   username: configService.getOrThrow<string>('DATABASE_USER'),
   password: configService.getOrThrow<string>('DATABASE_PASSWORD'),
   database: configService.getOrThrow<string>('DATABASE_NAME'),
+  synchronize: true,
   migrations: [join(__dirname, 'migrations', '*{.ts,.js}')],
   migrationsRun: configService.get<string>('NODE_ENV') !== 'production',
   logging: configService.get<boolean>('DATABASE_LOGGING'),
