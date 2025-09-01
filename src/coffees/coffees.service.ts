@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
@@ -7,6 +7,8 @@ import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
+import { ConfigService, ConfigType } from '@nestjs/config';
+import coffeeConfig from './config/coffee.config';
 
 // Scopes
 // Scope DEFAULT - This is assumed when NO Scope is entered like so: @Injectable() */
@@ -53,8 +55,18 @@ export class CoffeesService {
 
     private readonly dataSource: DataSource,
 
+    // private readonly configService: ConfigService,
+    // @Inject(coffeeConfig.KEY)
+    // private coffeesConfiguration: ConfigType<typeof coffeeConfig>,
+
     // @Inject('COFFEE_BRANDS') coffeesBrands: string[],
-  ) {}
+  ) {
+    // const dbHost = this.configService.get<string>('database.host');
+    // console.log(`Database Host: ${dbHost}`);
+    // console.log(coffeesBrands);
+    // console.log(coffeesConfiguration);
+    // coffeesConfiguration.foo
+  }
 
   async findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset } = paginationQuery;
