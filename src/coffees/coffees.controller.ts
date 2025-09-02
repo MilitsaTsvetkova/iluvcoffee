@@ -15,11 +15,18 @@ import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { ParseIntPipe } from '../common/pipes/parse-int/parse-int.pipe';
 import { Protocol } from '../common/decorators/protocol.decorator';
+import { ApiResponse } from '@nestjs/swagger';
 
 @Controller('coffees')
 export class CoffeesController {
   constructor(private readonly coffeeService: CoffeesService) {}
-
+  /**
+   * Setting different API Responses for Swagger UI
+   * (long version)
+   */
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  // /* short-hand versions are available as well */
+  // @ApiForbiddenResponse({ description: 'Forbidden.' })
   @Public()
   @Get()
   async findAll(
