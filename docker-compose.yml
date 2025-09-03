@@ -8,3 +8,10 @@ services:
       POSTGRES_PASSWORD: Password123
     ports:
       - '5432:5432'
+  test-db:
+    image: postgres:16
+    restart: always
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_PASSWORD: pass123

@@ -33,14 +33,12 @@ export class CoffeesController {
     @Query() paginationQuery: PaginationQueryDto,
     @Protocol('https') protocol: string,
   ) {
-    console.log({ protocol });
     // await new Promise((resolve) => setTimeout(resolve, 5000));
     return this.coffeeService.findAll(paginationQuery);
   }
 
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
-    console.log(typeof id);
     return this.coffeeService.findOne('' + id);
   }
 
