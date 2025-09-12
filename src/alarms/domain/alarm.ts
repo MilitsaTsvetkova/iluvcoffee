@@ -5,7 +5,7 @@ import { VersionedAggregateRoot } from '../../shared/domain/aggregate-root';
 export class Alarm extends VersionedAggregateRoot {
   public name: string;
   public severity: AlarmSeverity;
-  public triggeredAt: Date;
+  public triggeredAt: string;
   public isAcknowledged: boolean;
   public items = new Array<AlarmItem>();
 
