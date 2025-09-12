@@ -15,4 +15,12 @@ export class VersionedAggregateRoot extends AggregateRoot {
   private setVersion(version: Version): void {
     this[VERSION] = version;
   }
+
+  loadFromHistory(history: any[]): void {
+    const domainEvens = history.map((event) => event.data);
+    super.loadFromHistory(domainEvens);
+
+    const lastEvent = history[history.length - 1];
+    this.setVersion(new Version(lastEvent.position));
+  }
 }
