@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { SharedInfrastructureModule } from './infrasructure/shared-infrastructure.module';
+import { SharedInfrastructureModule } from './infrastructure/shared-infrastructure.module';
 
 @Module({
   imports: [SharedInfrastructureModule],
