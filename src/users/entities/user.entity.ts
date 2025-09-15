@@ -1,15 +1,13 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
 @Entity()
-export class Coffee {
+export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  name: string;
+  @Column({ unique: true })
+  email: string;
 
   @Column()
-  brand: string;
-
-  @Column('text', { array: true })
-  flavors: string[];
+  password: string;
 }
