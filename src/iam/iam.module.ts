@@ -11,6 +11,7 @@ import { AuthenticationGuard } from './authentication/guards/authentication/auth
 import { BcryptService } from './hashing/bcrypt.service';
 import { HashingService } from './hashing/hashing.service';
 import { AccessTokenGuard } from './authentication/guards/access-token/access-token.guard';
+import { RefreshTokenIdsStorage } from './authentication/refresh-token-ids.storage/refresh-token-ids.storage';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { AccessTokenGuard } from './authentication/guards/access-token/access-to
       useClass: AuthenticationGuard,
     },
     AccessTokenGuard,
+    RefreshTokenIdsStorage,
   ],
   controllers: [AuthenticationController],
 })
