@@ -15,7 +15,10 @@ import { ActiveUserData } from '../interfaces/active-user-data.interface';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
-import { RefreshTokenIdsStorage } from './refresh-token-ids.storage/refresh-token-ids.storage';
+import {
+  InvalidatedRefreshTokenError,
+  RefreshTokenIdsStorage,
+} from './refresh-token-ids.storage/refresh-token-ids.storage';
 import { randomUUID } from 'crypto';
 
 @Injectable()
@@ -116,7 +119,10 @@ export class AuthenticationService {
       }
       await this.refreshTokenIdsStorage.invalidate(user.id);
       return this.generateTokens(user);
-    } catch {
+    } catch (error) {
+      if (error instanceof InvalidatedRefreshTokenError) {
+        throw new UnauthorizedException('Access Denied');
+      }
       throw new UnauthorizedException();
     }
   }

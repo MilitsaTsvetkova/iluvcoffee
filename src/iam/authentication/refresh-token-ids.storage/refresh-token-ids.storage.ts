@@ -1,12 +1,7 @@
 import { OnApplicationBootstrap, OnApplicationShutdown } from '@nestjs/common';
 import Redis from 'ioredis';
 
-class InvalidatedRefreshTokenError extends Error {
-  constructor() {
-    super('Refresh token has been invalidated.');
-    this.name = 'InvalidatedRefreshTokenError';
-  }
-}
+export class InvalidatedRefreshTokenError extends Error {}
 
 export class RefreshTokenIdsStorage
   implements OnApplicationBootstrap, OnApplicationShutdown
