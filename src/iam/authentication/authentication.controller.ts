@@ -12,6 +12,7 @@ import { SignInDto } from './dto/sign-in.dto';
 import { Response } from 'express';
 import { Auth } from './decorators/auth.decorator';
 import { AuthType } from './enums/auth-type.enum';
+import { RefreshTokenDto } from './dto/refresh-token.dto';
 
 @Auth(AuthType.None)
 @Controller('authentication')
@@ -29,11 +30,17 @@ export class AuthenticationController {
     @Res({ passthrough: true }) response: Response,
     @Body() signInDto: SignInDto,
   ) {
-    const { accessToken } = await this.authService.signIn(signInDto);
-    response.cookie('accessToken', accessToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: true,
-    });
+    return this.authService.signIn(signInDto);
+    // response.cookie('accessToken', accessToken, {
+    //   httpOnly: true,
+    //   secure: true,
+    //   sameSite: true,
+    // });
+  }
+
+  @HttpCode(HttpStatus.OK) // changed since the default is 201
+  @Post('refresh-tokens')
+  refreshTokens(@Body() refreshTokenDto: RefreshTokenDto) {
+    return this.authService.refreshTokens(refreshTokenDto);
   }
 }
