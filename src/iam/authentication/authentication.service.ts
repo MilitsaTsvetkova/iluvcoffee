@@ -115,7 +115,7 @@ export class AuthenticationService {
         refreshTokenId,
       );
       if (!isValid) {
-        throw new UnauthorizedException();
+        throw new Error('Refresh token is invalid');
       }
       await this.refreshTokenIdsStorage.invalidate(user.id);
       return this.generateTokens(user);
