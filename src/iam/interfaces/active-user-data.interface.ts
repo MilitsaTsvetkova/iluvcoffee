@@ -1,4 +1,5 @@
 import { Role } from '../../users/enums/role.enum';
+import { PermissionType } from '../authorization/permission.type';
 
 export interface ActiveUserData {
   /**
@@ -6,7 +7,6 @@ export interface ActiveUserData {
    * that granted this token.
    */
   sub: number;
-
   /**
    * The subject's (user) email.
    */
@@ -15,4 +15,8 @@ export interface ActiveUserData {
    * The role of the user.
    */
   role: Role;
+  /**
+   * User permissions.
+   */
+  permissions: PermissionType[];
 }
