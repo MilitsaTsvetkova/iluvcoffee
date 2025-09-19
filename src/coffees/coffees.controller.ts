@@ -14,6 +14,8 @@ import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { ActiveUser } from '../iam/decorators/active-user.decorator';
 import { ActiveUserData } from '../iam/interfaces/active-user-data.interface';
+import { Roles } from '../iam/authorization/decorators/roles.decorator';
+import { Role } from '../users/enums/role.enum';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -34,17 +36,19 @@ export class CoffeesController {
       throw new NotFoundException(`Coffee with ID ${id} not found`);
     }
   }
-
+  @Roles(Role.Admin)
   @Post()
   create(@Body() body: CreateCoffeeDto) {
     return this.coffeeService.create(body);
   }
 
+  @Roles(Role.Admin)
   @Patch(':id')
   update(@Param('id') id: string, @Body() body: UpdateCoffeeDto) {
     return this.coffeeService.update(id, body);
   }
 
+  @Roles(Role.Admin)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.coffeeService.remove(id);
