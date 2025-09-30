@@ -9,15 +9,15 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { Policies } from '../iam/authorization/decorators/policies.decorator';
+import { Roles } from '../iam/authorization/decorators/roles.decorator';
+import { FrameworkContributorPolicy } from '../iam/authorization/policies/framework-contributor.policy';
+import { ActiveUser } from '../iam/decorators/active-user.decorator';
+import { ActiveUserData } from '../iam/interfaces/active-user-data.interface';
+import { Role } from '../users/enums/role.enum';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
-import { ActiveUser } from '../iam/decorators/active-user.decorator';
-import { ActiveUserData } from '../iam/interfaces/active-user-data.interface';
-import { Roles } from '../iam/authorization/decorators/roles.decorator';
-import { Role } from '../users/enums/role.enum';
-import { Permission } from '../iam/authorization/permission.type';
-import { Permissions } from '../iam/authorization/decorators/permissions.decorator';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -38,8 +38,12 @@ export class CoffeesController {
       throw new NotFoundException(`Coffee with ID ${id} not found`);
     }
   }
-  @Roles(Role.Admin)
-  @Permissions(Permission.CreateCoffee)
+  // @Roles(Role.Admin)
+  // @Permissions(Permission.CreateCoffee)
+  @Policies(
+    // 👈👈👈
+    new FrameworkContributorPolicy() /** new MinAgePolicy(18), new OnlyAdminPolicy() */,
+  )
   @Post()
   create(@Body() body: CreateCoffeeDto) {
     return this.coffeeService.create(body);
