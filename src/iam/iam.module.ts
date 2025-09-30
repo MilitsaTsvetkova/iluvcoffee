@@ -20,6 +20,8 @@ import { PoliciesGuard } from './authorization/guards/policies/policies.guard';
 import { ApiKeysService } from './authentication/api-keys.service';
 import { ApiKeyGuard } from './authentication/guards/api-key/api-key.guard';
 import { ApiKey } from '../users/api-keys/entities/api-key.entity/api-key.entity';
+import { GoogleAuthenticationService } from './authentication/social/google-authentication.service';
+import { GoogleAuthenticationController } from './authentication/social/google-authentication.controller';
 
 @Module({
   imports: [
@@ -52,7 +54,8 @@ import { ApiKey } from '../users/api-keys/entities/api-key.entity/api-key.entity
     FrameworkContributorPolicyHandler,
     PolicyHandlerStorage,
     ApiKeysService,
+    GoogleAuthenticationService,
   ],
-  controllers: [AuthenticationController],
+  controllers: [AuthenticationController, GoogleAuthenticationController],
 })
 export class IamModule {}
